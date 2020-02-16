@@ -1,11 +1,11 @@
 provider "aws" {
-  region = var.ec2_region
+  region = var.region
 }
 
 resource "aws_security_group" "tpot" {
   name        = "T-Pot"
   description = "T-Pot Honeypot"
-  vpc_id      = var.ec2_vpc_id
+  vpc_id      = module.vpc.vpc_id
   ingress {
     from_port   = 0
     to_port     = 64000
@@ -22,19 +22,19 @@ resource "aws_security_group" "tpot" {
     from_port   = 64294
     to_port     = 64294
     protocol    = "tcp"
-    cidr_blocks = var.admin_ip
+    cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
     from_port   = 64295
     to_port     = 64295
     protocol    = "tcp"
-    cidr_blocks = var.admin_ip
+    cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
     from_port   = 64297
     to_port     = 64297
     protocol    = "tcp"
-    cidr_blocks = var.admin_ip
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0
@@ -47,11 +47,43 @@ resource "aws_security_group" "tpot" {
   }
 }
 
-resource "aws_instance" "tpot" {
-  ami           = var.ec2_ami[var.ec2_region]
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "2.21.0"
+
+  name = var.vpc_name
+
+  cidr = "172.16.0.0/16"
+
+  azs                 = ["us-west-2b"]
+  public_subnets      = ["172.16.0.0/22"]
+  private_subnets     = []
+
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+  enable_nat_gateway   = false
+
+  public_subnet_tags = {
+    Name = "honeypot-public"
+  }
+
+  tags = {
+    Owner       = "platform"
+    Environment = "production"
+  }
+
+  vpc_tags = {
+    Name = "var.vpc_name"
+  }
+}
+
+resource "aws_spot_instance_request" "tpot" {
+  ami           = var.ec2_ami[var.region]
+  spot_price    = "0.0263"
+  wait_for_fulfillment = "true"
   instance_type = var.ec2_instance_type
   key_name      = var.ec2_ssh_key_name
-  subnet_id     = var.ec2_subnet_id
+  subnet_id     = module.vpc.public_subnets[0]
   tags = {
     Name = "T-Pot Honeypot"
   }
