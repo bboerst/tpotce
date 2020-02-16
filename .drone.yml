@@ -17,3 +17,15 @@ steps:
       from_secret: docker_password
     repo: bboerst/adbhoney
     tags: latest
+
+- name: docker-ciscoasa 
+  image: plugins/docker
+  settings:
+    dockerfile: docker/ciscoasa/Dockerfile
+    insecure: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: bboerst/ciscoasa
+    tags: latest
