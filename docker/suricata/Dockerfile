@@ -63,9 +63,9 @@ RUN    apk -U add \
 #
 # Get and build Suricata
     mkdir -p /opt/builder/ && \
-    wget https://www.openinfosecfoundation.org/download/suricata-5.0.0.tar.gz && \
-    tar xvfz suricata-5.0.0.tar.gz --strip-components=1 -C /opt/builder/ && \
-    rm suricata-5.0.0.tar.gz && \
+    wget https://www.openinfosecfoundation.org/download/suricata-5.0.2.tar.gz && \
+    tar xvfz suricata-5.0.2.tar.gz --strip-components=1 -C /opt/builder/ && \
+    rm suricata-5.0.2.tar.gz && \
     cd /opt/builder && \
     ./configure \
 	--prefix=/usr \
