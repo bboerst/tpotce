@@ -29,7 +29,7 @@ RUN apk -U add \
 # Install cowrie
     mkdir -p /home/cowrie && \
     cd /home/cowrie && \
-    git clone --depth=1 https://github.com/micheloosterhof/cowrie -b v2.0.0 && \
+    git clone --depth=1 https://github.com/micheloosterhof/cowrie -b v2.0.2 && \
     cd cowrie && \
     mkdir -p log && \
     pip3 install --upgrade pip && \
