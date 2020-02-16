@@ -474,7 +474,7 @@ You may opt out of the submission by removing the `# Ewsposter service` from `/o
     restart: always
     networks:
      - ewsposter_local
-    image: "dtagdevsec/ewsposter:1903"
+    image: "bboerst/ewsposter:latest"
     volumes:
      - /data:/data
      - /data/ews/conf/ews.ip:/opt/ewsposter/ews.ip
