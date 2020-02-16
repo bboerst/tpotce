@@ -1,0 +1,19 @@
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: docker-adbhoney 
+  image: plugins/docker
+  settings:
+    dockerfile: docker/adbhoney/Dockerfile
+    insecure: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: bboerst/adbhoney
+    tags: latest
