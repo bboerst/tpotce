@@ -570,9 +570,9 @@ fi
 if [ "$myTPOT_DEPLOYMENT_TYPE" == "iso" ] || [ "$myTPOT_DEPLOYMENT_TYPE" == "user" ];
   then
     myOK="1"
-    myCONF_WEB_USER="webuser"
-    myCONF_WEB_PW="pass1"
-    myCONF_WEB_PW2="pass2"
+    myCONF_WEB_USER="web"
+    myCONF_WEB_PW="p@ssw0rd"
+    myCONF_WEB_PW2="p@ssw0rd2"
     mySECURE="0"
     while [ 1 != 2 ]
       do
@@ -653,7 +653,7 @@ then
           -keyout "/data/nginx/cert/nginx.key" \
           -out "/data/nginx/cert/nginx.crt" \
           -days 3650 \
-          -subj '/C=AU/ST=Some-State/O=Internet Widgits Pty Ltd' \
+          -subj '/C=US/ST=California/O=ToppiCal Media LLC' \
           -addext "subjectAltName = IP:$myINTIP"
 fi
 
@@ -690,7 +690,7 @@ hash -r
 
 # Cloning T-Pot from GitHub
 fuBANNER "Cloning T-Pot"
-git clone https://github.com/dtag-dev-sec/tpotce /opt/tpot
+git clone https://github.com/bboerst/tpotce -b bboerst-updates /opt/tpot
 
 # Let's create the T-Pot user
 fuBANNER "Create user"
