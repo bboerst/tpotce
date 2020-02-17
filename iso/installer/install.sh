@@ -690,7 +690,7 @@ hash -r
 
 # Cloning T-Pot from GitHub
 fuBANNER "Cloning T-Pot"
-git clone https://github.com/dtag-dev-sec/tpotce /opt/tpot
+git clone https://github.com/bboerst/tpotce -b bboerst-updates-v2 /opt/tpot
 
 # Let's create the T-Pot user
 fuBANNER "Create user"
