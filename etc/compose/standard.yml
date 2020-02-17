@@ -554,6 +554,6 @@ services:
      - spiderfoot_local
     ports:
      - "127.0.0.1:64303:8080"
-    image: "bboerst/spiderfoot:latest"
+    image: "dtagdevsec/spiderfoot:1903"
     volumes:
      - /data/spiderfoot/spiderfoot.db:/home/spiderfoot/spiderfoot.db
