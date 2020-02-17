@@ -128,7 +128,7 @@ resource "aws_ebs_volume" "tpot_data" {
 }
 
 resource "aws_volume_attachment" "tpot_att" {
-  device_name = "/dev/sdh"
+  device_name = "/dev/xvdf"
   volume_id   = aws_ebs_volume.tpot_data.id
   instance_id = aws_spot_instance_request.tpot.spot_instance_id
 }

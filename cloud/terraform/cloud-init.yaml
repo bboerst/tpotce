@@ -9,6 +9,10 @@ packages:
   - git
 
 runcmd:
+  - EBS_DEVICE=$(lsblk | grep -e disk | awk '{sub("G","",$4)} {if ($4+0 > 10) print $1}')
+  - mkdir -p /data
+  - mount /dev/"${EBS_DEVICE}" /data
+  - echo -e "UUID=$(lsblk -o +uuid /dev/"${EBS_DEVICE}" | grep "${EBS_DEVICE}" | awk '{print $8}') \t /data \t ext4 \t defaults \t 0 \t 0" >> /etc/fstab
   - git clone https://github.com/bboerst/tpotce -b bboerst-updates-v2 /root/tpot
   - /root/tpot/iso/installer/install.sh --type=auto --conf=/root/tpot.conf
   - rm /root/tpot.conf
@@ -23,4 +27,3 @@ write_files:
     owner: root:root
     path: /root/tpot.conf
     permissions: '0600'
-`
