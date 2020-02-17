@@ -16,4 +16,4 @@ services:
      - hpfeeds_local
     ports:
      - "20000:20000"
-    image: "bboerst/hpfeeds:latest"
+    image: "dtagdevsec/hpfeeds:1903"
