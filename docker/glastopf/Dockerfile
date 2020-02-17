@@ -18,13 +18,14 @@ RUN apk -U --no-cache add \
                php7 \
                php7-dev \
                openssl-dev \
-               py-mysqldb \
+               mariadb-dev \
                py-openssl \
                py-pip \
                py-setuptools \
                python \
                python-dev && \
-    pip install --no-cache-dir --upgrade pip && \
+    sed '/st_mysql_options options;/a unsigned int reconnect;' /usr/include/mysql/mysql.h -i.bkp && \
+    pip install --no-cache-dir --upgrade pip mysql-python && \
 
 # Install php sandbox from git
     git clone --depth=1 https://github.com/mushorg/BFR /opt/BFR && \
